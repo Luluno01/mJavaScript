@@ -1,0 +1,16 @@
+Executable : D:\android-sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+-HE:\Personal\AndroidDevelopment\mJavaScript\app
+-BE:\Personal\AndroidDevelopment\mJavaScript\app\.externalNativeBuild\cmake\debug\x86_64
+-DANDROID_ABI=x86_64
+-DANDROID_PLATFORM=android-27
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\Personal\AndroidDevelopment\mJavaScript\app\build\intermediates\cmake\debug\obj\x86_64
+-DCMAKE_BUILD_TYPE=Debug
+-DANDROID_NDK=D:\android-ndk
+-DCMAKE_CXX_FLAGS=
+-DCMAKE_TOOLCHAIN_FILE=D:\android-ndk\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=D:\android-sdk\cmake\3.6.4111459\bin\ninja.exe
+-GAndroid Gradle - Ninja
+-DANDROID_STL=c++_shared
+jvmArgs : 
+

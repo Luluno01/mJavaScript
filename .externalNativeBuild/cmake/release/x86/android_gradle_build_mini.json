@@ -1,0 +1,21 @@
+{
+  "buildFiles": [
+    "E:\\Personal\\AndroidDevelopment\\mJavaScript\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "D:\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\Personal\\AndroidDevelopment\\mJavaScript\\app\\.externalNativeBuild\\cmake\\release\\x86 --target clean"
+  ],
+  "libraries": {
+    "libnode-Release-x86": {
+      "artifactName": "libnode",
+      "abi": "x86",
+      "output": "E:\\Personal\\AndroidDevelopment\\mJavaScript\\app\\libnode\\bin\\x86\\libnode.so"
+    },
+    "native-lib-Release-x86": {
+      "artifactName": "native-lib",
+      "buildCommand": "D:\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\Personal\\AndroidDevelopment\\mJavaScript\\app\\.externalNativeBuild\\cmake\\release\\x86 --target native-lib",
+      "abi": "x86",
+      "output": "E:\\Personal\\AndroidDevelopment\\mJavaScript\\app\\build\\intermediates\\cmake\\release\\obj\\x86\\libnative-lib.so"
+    }
+  }
+}

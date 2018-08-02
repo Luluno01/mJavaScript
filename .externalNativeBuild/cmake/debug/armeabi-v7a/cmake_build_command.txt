@@ -1,0 +1,16 @@
+Executable : D:\android-sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+-HE:\Personal\AndroidDevelopment\mJavaScript\app
+-BE:\Personal\AndroidDevelopment\mJavaScript\app\.externalNativeBuild\cmake\debug\armeabi-v7a
+-DANDROID_ABI=armeabi-v7a
+-DANDROID_PLATFORM=android-27
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\Personal\AndroidDevelopment\mJavaScript\app\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_BUILD_TYPE=Debug
+-DANDROID_NDK=D:\android-ndk
+-DCMAKE_CXX_FLAGS=
+-DCMAKE_TOOLCHAIN_FILE=D:\android-ndk\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=D:\android-sdk\cmake\3.6.4111459\bin\ninja.exe
+-GAndroid Gradle - Ninja
+-DANDROID_STL=c++_shared
+jvmArgs : 
+
