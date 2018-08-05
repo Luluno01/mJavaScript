@@ -4,18 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:paddingTop="@dimen/card_margin"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/sample_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<android.support.design.card.MaterialCardView-->
+        <!--android:id="@+id/newScriptCard"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/card_margin">-->
+
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:padding="@dimen/card_padding">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/newScriptImageView"-->
+                <!--android:layout_width="@dimen/item_icon_size"-->
+                <!--android:layout_height="@dimen/item_icon_size"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:contentDescription="@string/new_script"-->
+                <!--android:minHeight="@dimen/item_icon_size"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:srcCompat="@drawable/ic_add_gray" />-->
+
+            <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:layout_constraintStart_toEndOf="@id/newScriptImageView"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/newScriptTextView"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/new_script"-->
+                    <!--android:textAllCaps="true"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:textSize="@dimen/card_title_size"-->
+                    <!--android:textStyle="bold"-->
+                    <!--app:layout_constraintBottom_toTopOf="@id/newScriptDescTextView"-->
+                    <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/newScriptDescTextView"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/new_script_desc"-->
+                    <!--android:textAllCaps="true"-->
+                    <!--android:textSize="@dimen/card_content_size"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/newScriptTextView" />-->
+            <!--</android.support.constraint.ConstraintLayout>-->
+        <!--</android.support.constraint.ConstraintLayout>-->
+    <!--</android.support.design.card.MaterialCardView>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="47dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/recyclerView">
+
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

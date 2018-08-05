@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">mJavaScript</string>
     <string name="action_settings">Settings</string>
+    <string name="exit_hint">Press back again to exit</string>
+    <string name="new_script">New Script</string>
+    <string name="new_script_desc">Start Coding Here</string>
+    <string name="open_script">Open Script</string>
+    <string name="open_script_desc">Open An Existing JS File</string>
+    <string name="new_project">New Project</string>
+    <string name="new_project_desc">Start A New Project</string>
+    <string name="open_project">Open Project</string>
+    <string name="open_project_desc">Open A JS Project Folder</string>
+    <string name="under_construction">Sorry, this function is still under construction :P</string>
 </resources>

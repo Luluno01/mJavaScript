@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<functions>
+    <function
+        id="newScript"
+        icon="@drawable/ic_add_gray"
+        title="@string/new_script"
+        content="@string/new_script_desc" />
+    <function
+        id="openScript"
+        icon="@drawable/ic_script_gray"
+        title="@string/open_script"
+        content="@string/open_script_desc" />
+    <function
+        id="newProject"
+        icon="@drawable/ic_add_gray"
+        title="@string/new_project"
+        content="@string/new_project_desc" />
+    <function
+        id="openProject"
+        icon="@drawable/ic_project_gray"
+        title="@string/open_project"
+        content="@string/open_project_desc" />
+</functions>

@@ -1,10 +1,13 @@
 package ml.a0x0000000000.mjavascript
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -12,39 +15,78 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-
-        private var started: Boolean = false
+        const val TAG: String = "mJS"
 
         // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("native-lib")
-            System.loadLibrary("node")
+//            System.loadLibrary("node")
         }
     }
+
+    private var webViewJavaScript: WebViewJavaScript? = null
+    private var nodeJavaScript: NodeJavaScript? = null
+    private var exitTime: Long = 0
+    private lateinit var adapter: MainFunctionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        // Example of a call to a native method
-        sample_text.text = stringFromJNI()
-
-        if (!started) {
-            started = true
-            Thread(Runnable {
-                startNodeWithArguments(arrayOf("node", "-e", "let http = require('http');" +
-                        "let server = http.createServer((request, response) => {" +
-                        "  response.end('Versions: ' + JSON.stringify(process.versions));" +
-                        "});" +
-                        "server.listen(3000);"))
-            }).start()
+        recyclerView.addItemDecoration(RecyclerViewSpacesItemDecoration(null))
+        FunctionItemInflater(this)
+                .inflate(R.xml.main_functions, recyclerView)
+                .adapter.listener = object: MainFunctionAdapter.OnItemClickListener {
+            override fun onItemClick(index: Any) {
+                this@MainActivity.onFunctionItemClick(index)
+            }
         }
+//        sample_text.text = ""
+//
+//        webViewJavaScript = WebViewJavaScript(this)
+//        webViewJavaScript.exec("setTimeout(() => console.log(new Error('Rua!')), 5000)", null)
+//        webViewJavaScript.setOnResultCallback { message -> onResult("${message.message()}\n") }
+//
+//        nodeJavaScript = NodeJavaScript(this)
+//        nodeJavaScript.onMessageCallback = { text -> onResult(text) }
+//        nodeJavaScript.onReadyCallback = { nodeJavaScript.exec("console.log('Rua!');", null) }
+//
+//        Log.i(TAG, "$filesDir")
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            Snackbar.make(fab, getString(R.string.exit_hint), Snackbar.LENGTH_SHORT).show()
+            exitTime = System.currentTimeMillis()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun notImplement() {
+        Snackbar.make(fab, getString(R.string.under_construction), Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun onFunctionItemClick(index: Any) {
+        Log.i(TAG, "Function ${index as String} clicked")
+        when(index) {
+            "openScript" -> notImplement()
+            "newProject" -> notImplement()
+            "openProject" -> notImplement()
+        }
+    }
+
+    fun onFabClick(view: View) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+    }
+
+    override fun onDestroy() {
+        webViewJavaScript?.destroy()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,17 +104,4 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    external fun stringFromJNI(): String
-
-    /**
-     * Start a Node.js instance with arguments.
-     * @param {Array<String>} args Arguments to be passed to Node.js instance.
-     * @return {Integer} Exit status of Node.js instance.
-     */
-    external fun startNodeWithArguments(args: Array<String>): Integer
 }

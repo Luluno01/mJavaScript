@@ -1,3 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_margin_double">16dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_image_text_margin">10dp</dimen>
+    <dimen name="item_icon_size">46dp</dimen>
+    <dimen name="card_title_size">16sp</dimen>
+    <dimen name="card_content_size">14sp</dimen>
 </resources>
