@@ -173,7 +173,7 @@ struct dsa_st {
     int references;
     CRYPTO_EX_DATA ex_data;
     const DSA_METHOD *meth;
-    /* functional reference if 'meth' is ENGINE-provided */
+    /* functional reference if 'meth' is Engines-provided */
     ENGINE *engine;
 };
 

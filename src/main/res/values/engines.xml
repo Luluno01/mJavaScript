@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="engines">
+        <item>@array/web_view</item>
+        <item>@array/node</item>
+    </array>
+
+    <array name="web_view">
+        <item>WebView</item> <!--Internal engine name-->
+        <item>@string/web_view_desc</item>
+    </array>
+    <array name="node">
+        <item>Node</item> <!--Internal engine name-->
+        <item>@string/node_desc</item>
+    </array>
+</resources>

@@ -7,4 +7,7 @@
     <dimen name="item_icon_size">46dp</dimen>
     <dimen name="card_title_size">16sp</dimen>
     <dimen name="card_content_size">14sp</dimen>
+
+    <dimen name="editor_padding">8dp</dimen>
+    <dimen name="editor_text_size">12sp</dimen>
 </resources>

@@ -2,6 +2,14 @@
     <string name="app_name">mJavaScript</string>
     <string name="action_settings">Settings</string>
     <string name="exit_hint">Press back again to exit</string>
+
+    <string name="dialog_pick_failed_title">Open Failed</string>
+    <string name="dialog_pick_failed_message">Sorry, unable to open script/project.\nPlease make sure you have a file manager installed.</string>
+    <string name="dialog_open_failed_title">Open Failed</string>
+    <string name="dialog_open_failed_message">Sorry, unable to open script/project.\nPlease make sure you have the permission and the script/project exists.</string>
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+
     <string name="new_script">New Script</string>
     <string name="new_script_desc">Start Coding Here</string>
     <string name="open_script">Open Script</string>
@@ -11,4 +19,28 @@
     <string name="open_project">Open Project</string>
     <string name="open_project_desc">Open A JS Project Folder</string>
     <string name="under_construction">Sorry, this function is still under construction :P</string>
+
+    <string name="title_activity_edit">Edit</string>
+    <string name="settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="save_as">Save As…</string>
+    <string name="go_to">Goto…</string>
+    <string name="run">Run</string>
+    <string name="dialog_save_failed_title">Save Failed</string>
+    <string name="dialog_save_failed_message">Sorry, please make sure you have the permission.\nTry "save as" if this problem persists.</string>
+    <string name="save_success">File saved</string>
+    <string name="dialog_select_engine_title">Select Engine</string>
+    <string name="dialog_select_engine_message">Select an engine to run your script.</string>
+
+    <string name="web_view">WebView</string>
+    <string name="web_view_desc">WebView (built-in browser environment)</string>
+    <string name="node">Node.js</string>
+    <string name="node_desc">Node.js</string>
+
+    <string name="default_filename">NewScript.js</string>
+
+    <string name="title_activity_result">Output</string>
+    <string name="rerun_hint">Rerunning script…</string>
+    <string name="dialog_run_failed_title">Run Failed</string>
+    <string name="dialog_run_failed_message">Failed to run script with the following error message:\n%s</string>
 </resources>

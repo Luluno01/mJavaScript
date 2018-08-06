@@ -4,7 +4,7 @@
 
 /** \mainpage V8 API Reference Guide
  *
- * V8 is Google's open source JavaScript engine.
+ * V8 is Google's open source JavaScript engines.
  *
  * This set of documents provides reference material generated from the
  * V8 header file, include/v8.h.
@@ -59,7 +59,7 @@
 #endif  // V8_OS_WIN
 
 /**
- * The v8 JavaScript engine.
+ * The v8 JavaScript engines.
  */
 namespace v8 {
 
@@ -471,7 +471,7 @@ enum class WeakCallbackType { kParameter, kInternalFields, kFinalizer };
  * disposed using Reset().
  *
  * A persistent handle contains a reference to a storage cell within
- * the V8 engine which holds an object value and which is updated by
+ * the V8 engines which holds an object value and which is updated by
  * the garbage collector whenever the object is moved.  A new storage
  * cell can be created using the constructor or PersistentBase::Reset and
  * existing handles can be disposed using PersistentBase::Reset.
@@ -2559,7 +2559,7 @@ class V8_EXPORT String : public Name {
    * ExternalOneByteStringResource to manage the life cycle of the
    * underlying buffer.  Note that the string data must be immutable
    * and that the data must be Latin-1 and not UTF-8, which would require
-   * special treatment internally in the engine and do not allow efficient
+   * special treatment internally in the engines and do not allow efficient
    * indexing.  Use String::New or convert to 16 bit data for non-Latin1.
    */
 
@@ -6602,7 +6602,7 @@ struct DeserializeInternalFieldsCallback {
 typedef DeserializeInternalFieldsCallback DeserializeEmbedderFieldsCallback;
 
 /**
- * Isolate represents an isolated instance of the V8 engine.  V8 isolates have
+ * Isolate represents an isolated instance of the V8 engines.  V8 isolates have
  * completely separate states.  Objects from one isolate must not be used in
  * other isolates.  The embedder can create multiple isolates and use them in
  * parallel in multiple threads.  An isolate can be entered by at most one
@@ -7163,7 +7163,7 @@ class V8_EXPORT Isolate {
    * When execution is forcefully terminated using TerminateExecution(),
    * the isolate can not resume execution until all JavaScript frames
    * have propagated the uncatchable exception which is generated.  This
-   * method allows the program embedding the engine to handle the
+   * method allows the program embedding the engines to handle the
    * termination event and resume execution capability, even if
    * JavaScript frames remain on the stack.
    *
@@ -7805,7 +7805,7 @@ class V8_EXPORT V8 {
    * When execution is forcefully terminated using TerminateExecution(),
    * the isolate can not resume execution until all JavaScript frames
    * have propagated the uncatchable exception which is generated.  This
-   * method allows the program embedding the engine to handle the
+   * method allows the program embedding the engines to handle the
    * termination event and resume execution capability, even if
    * JavaScript frames remain on the stack.
    *
@@ -8179,7 +8179,7 @@ class V8_EXPORT TryCatch {
    * If CanContinue returns false, the correct action is to perform any C++
    * cleanup needed and then return.  If CanContinue returns false and
    * HasTerminated returns true, it is possible to call
-   * CancelTerminateExecution in order to continue calling into the engine.
+   * CancelTerminateExecution in order to continue calling into the engines.
    */
   bool CanContinue() const;
 
@@ -8193,7 +8193,7 @@ class V8_EXPORT TryCatch {
    *
    * If such an exception has been thrown, HasTerminated will return true,
    * indicating that it is possible to call CancelTerminateExecution in order
-   * to continue calling into the engine.
+   * to continue calling into the engines.
    */
   bool HasTerminated() const;
 

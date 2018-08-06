@@ -8,16 +8,6 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <errno.h>
-
-extern "C" JNIEXPORT jstring
-JNICALL
-Java_ml_a0x0000000000_mjavascript_MainActivity_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
 
 const char *ADB_TAG = "NODEJS";
 
@@ -27,6 +17,7 @@ pthread_t thread_stdout;
 pthread_t thread_stderr;
 JavaVM *vm = NULL;
 jobject jObj = NULL;
+jclass cls = NULL;
 
 void *thread_stderr_func(void*) {
     JNIEnv *env = NULL;
@@ -36,7 +27,7 @@ void *thread_stderr_func(void*) {
         __android_log_write(ANDROID_LOG_INFO, ADB_TAG, "Env got");
     };
     jclass cls = env->GetObjectClass(jObj);
-    jmethodID onResult = env->GetMethodID(cls, "onResult", "(Ljava/lang/String;)V");
+    jmethodID onResult = env->GetStaticMethodID(cls, "onResult", "(Ljava/lang/String;)V");
     ssize_t redirectSize;
     char buf[2048];
     while((redirectSize = read(pipe_stderr[0], buf, sizeof buf - 1)) > 0) {
@@ -45,7 +36,7 @@ void *thread_stderr_func(void*) {
 //            --redirectSize;
         buf[redirectSize] = 0;
 //        __android_log_write(ANDROID_LOG_ERROR, ADB_TAG, buf);
-        env->CallVoidMethod(jObj, onResult, env->NewStringUTF(buf));
+        env->CallStaticVoidMethod(cls, onResult, env->NewStringUTF(buf));
     }
     return 0;
 }
@@ -58,7 +49,7 @@ void *thread_stdout_func(void*) {
         __android_log_write(ANDROID_LOG_INFO, ADB_TAG, "Env got");
     };
     jclass cls = env->GetObjectClass(jObj);
-    jmethodID onResult = env->GetMethodID(cls, "onResult", "(Ljava/lang/String;)V");
+    jmethodID onResult = env->GetStaticMethodID(cls, "onResult", "(Ljava/lang/String;)V");
     ssize_t redirectSize;
     char buf[2048];
     while((redirectSize = read(pipe_stdout[0], buf, sizeof buf - 1)) > 0) {
@@ -67,7 +58,7 @@ void *thread_stdout_func(void*) {
 //            --redirectSize;
         buf[redirectSize] = 0;
 //        __android_log_write(ANDROID_LOG_INFO, ADB_TAG, buf);
-        env->CallVoidMethod(jObj, onResult, env->NewStringUTF(buf));
+        env->CallStaticVoidMethod(cls, onResult, env->NewStringUTF(buf));
     }
     return 0;
 }
@@ -139,7 +130,7 @@ void redirectSTDIN(std::string infile) {
 
 extern "C" JNIEXPORT jint
 JNICALL
-Java_ml_a0x0000000000_mjavascript_NodeJavaScript_startNodeWithArguments(
+Java_ml_a0x00000000_mjavascript_NodeJavaScript_startNodeWithArguments(
         JNIEnv *env,
         jobject /* this */ obj,
         jobjectArray arguments) {

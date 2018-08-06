@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ml.a0x00000000.mjavascript.editor.IridiumHighlightingEditorJ xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_editor"
+    android:gravity="start|top"
+    android:imeOptions="flagNoExtractUi"
+    android:inputType="textVisiblePassword|textMultiLine"
+    android:padding="@dimen/editor_padding"
+    android:scrollbars="vertical"
+    android:textColor="@color/editor_text"
+    android:textSize="@dimen/editor_text_size"
+    android:typeface="monospace"
+    tools:ignore="Overdraw" />

@@ -137,7 +137,7 @@ struct rsa_st {
     int pad;
     long version;
     const RSA_METHOD *meth;
-    /* functional reference if 'meth' is ENGINE-provided */
+    /* functional reference if 'meth' is Engines-provided */
     ENGINE *engine;
     BIGNUM *n;
     BIGNUM *e;

@@ -236,7 +236,7 @@
 #  undef RSA_padding_check_PKCS1_OAEP_mgf1
 #  define RSA_padding_check_PKCS1_OAEP_mgf1       RSA_pad_check_PKCS1_OAEP_mgf1
 
-/* Hack some ENGINE long names */
+/* Hack some Engines long names */
 #  undef ENGINE_get_default_BN_mod_exp_crt
 #  define ENGINE_get_default_BN_mod_exp_crt       ENGINE_get_def_BN_mod_exp_crt
 #  undef ENGINE_set_default_BN_mod_exp_crt
