@@ -12,6 +12,13 @@ Feel free to open an issue if you got any technical problem or question. Feature
 
 ## Screenshots
 
+<style>
+.screenshots img {
+  max-height: 30%;
+}
+</style>
+
+<div class="screenshots">
 ![Home](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000640.jpg?raw=true)
 ![Edit](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000647.jpg?raw=true)
 ![Edit](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000740.jpg?raw=true)
@@ -25,6 +32,7 @@ Feel free to open an issue if you got any technical problem or question. Feature
 ![Engines Settings](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-003550.jpg?raw=true)
 ![About](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-003554.jpg?raw=true)
 ![Help](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-003557.jpg?raw=true)
+</div>
 
 ## Note
 
@@ -42,7 +50,7 @@ Furthermore, if you are running your code via Node.js engine, please be careful 
 4. Unstoppable server (e.g. an infinite http server)
 5. Any lengthy operation
 
-Otherwise you will have to restart (or close) the app completely to interrupt your script. Do so unless you know excatly what you are doing.
+Otherwise you will have to restart (or close) the app completely to interrupt your script. Don't do so unless you know excatly what you are doing.
 
 ## Q&A
 
