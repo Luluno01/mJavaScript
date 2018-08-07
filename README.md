@@ -12,7 +12,6 @@ Feel free to open an issue if you got any technical problem or question. Feature
 
 ## Screenshots
 
-<img src="https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000640.jpg?raw=true" height="30%" />
 ![Home](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000640.jpg?raw=true)
 ![Edit](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000647.jpg?raw=true)
 ![Edit](https://github.com/Luluno01/mJavaScript/blob/master/screenshots/Screenshot_20180808-000740.jpg?raw=true)
