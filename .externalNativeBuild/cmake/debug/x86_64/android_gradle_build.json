@@ -26,7 +26,7 @@
 			[
 				
 				{
-					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=D:/android-ndk/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=D:/android-ndk/sysroot  -Dnative_lib_EXPORTS -I..\\..\\..\\..\\libnode\\include\\node -isystem D:\\android-ndk\\sources\\cxx-stl\\llvm-libc++\\include -isystem D:\\android-ndk\\sources\\android\\support\\include -isystem D:\\android-ndk\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem D:/android-ndk/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=27 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=D:/android-ndk/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=D:/android-ndk/sysroot  -Dnative_lib_EXPORTS -I..\\..\\..\\..\\libnode\\include\\node -isystem D:\\android-ndk\\sources\\cxx-stl\\llvm-libc++\\include -isystem D:\\android-ndk\\sources\\android\\support\\include -isystem D:\\android-ndk\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem D:/android-ndk/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
 					"src" : "E:/Personal/AndroidDevelopment/mJavaScript/app/src/main/cpp/native-lib.cpp",
 					"workingDirectory" : "E:/Personal/AndroidDevelopment/mJavaScript/app/.externalNativeBuild/cmake/debug/x86_64"
 				}

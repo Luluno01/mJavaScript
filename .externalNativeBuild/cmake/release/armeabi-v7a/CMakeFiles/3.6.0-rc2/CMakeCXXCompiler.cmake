@@ -64,5 +64,5 @@ endif()
 
 
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "m;dl;c;dl")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a;D:/android-ndk/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/6.0.2/lib/linux/arm;D:/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb;D:/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/arm-linux-androideabi/lib/armv7-a/thumb;D:/android-ndk/platforms/android-27/arch-arm/usr/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a;D:/android-ndk/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/6.0.2/lib/linux/arm;D:/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb;D:/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/arm-linux-androideabi/lib/armv7-a/thumb;D:/android-ndk/platforms/android-19/arch-arm/usr/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

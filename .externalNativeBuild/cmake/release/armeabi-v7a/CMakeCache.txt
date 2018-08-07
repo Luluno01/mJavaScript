@@ -21,7 +21,7 @@ ANDROID_ABI:UNINITIALIZED=armeabi-v7a
 ANDROID_NDK:UNINITIALIZED=D:\android-ndk
 
 //No help, variable specified on the command line.
-ANDROID_PLATFORM:UNINITIALIZED=android-27
+ANDROID_PLATFORM:UNINITIALIZED=android-19
 
 //No help, variable specified on the command line.
 ANDROID_STL:UNINITIALIZED=c++_shared
@@ -59,7 +59,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //Libraries linked by default with all C++ applications.
-CMAKE_CXX_STANDARD_LIBRARIES:STRING=-latomic -lm "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libunwind.a" "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libc++_shared.so"
+CMAKE_CXX_STANDARD_LIBRARIES:STRING=-latomic -lm "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libandroid_support.a" "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libunwind.a" "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libc++_shared.so"
 
 //Flags used by the compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -196,10 +196,10 @@ Project_BINARY_DIR:STATIC=E:/Personal/AndroidDevelopment/mJavaScript/app/.extern
 Project_SOURCE_DIR:STATIC=E:/Personal/AndroidDevelopment/mJavaScript/app
 
 //Path to a library.
-log-lib:FILEPATH=D:/android-ndk/platforms/android-27/arch-arm/usr/lib/liblog.so
+log-lib:FILEPATH=D:/android-ndk/platforms/android-19/arch-arm/usr/lib/liblog.so
 
 //Dependencies for the target
-native-lib_LIB_DEPENDS:STATIC=general;libnode;general;D:/android-ndk/platforms/android-27/arch-arm/usr/lib/liblog.so;
+native-lib_LIB_DEPENDS:STATIC=general;libnode;general;D:/android-ndk/platforms/android-19/arch-arm/usr/lib/liblog.so;
 
 
 ########################

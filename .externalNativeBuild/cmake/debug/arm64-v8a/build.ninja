@@ -35,7 +35,7 @@ include rules.ninja
 build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__native-lib ../../../../src/main/cpp/native-lib.cpp
   DEFINES = -Dnative_lib_EXPORTS
   DEP_FILE = CMakeFiles\native-lib.dir\src\main\cpp\native-lib.cpp.o.d
-  FLAGS = -isystem D:/android-ndk/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=27 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC
+  FLAGS = -isystem D:/android-ndk/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../libnode/include/node -isystem D:/android-ndk/sources/cxx-stl/llvm-libc++/include -isystem D:/android-ndk/sources/android/support/include -isystem D:/android-ndk/sources/cxx-stl/llvm-libc++abi/include
   IN_ABS = E:\Personal\AndroidDevelopment\mJavaScript\app\src\main\cpp\native-lib.cpp
   OBJECT_DIR = CMakeFiles\native-lib.dir
@@ -48,9 +48,9 @@ build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__nat
 #############################################
 # Link the shared library ..\..\..\..\build\intermediates\cmake\debug\obj\arm64-v8a\libnative-lib.so
 
-build ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | ../../../../libnode/bin/arm64-v8a/libnode.so D$:/android-ndk/platforms/android-27/arch-arm64/usr/lib/liblog.so
-  LANGUAGE_COMPILE_FLAGS = -isystem D:/android-ndk/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=27 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info
-  LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -nostdlib++ --sysroot D:/android-ndk/platforms/android-27/arch-arm64 -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -LD:/android-ndk/sources/cxx-stl/llvm-libc++/libs/arm64-v8a -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
+build ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | ../../../../libnode/bin/arm64-v8a/libnode.so D$:/android-ndk/platforms/android-21/arch-arm64/usr/lib/liblog.so
+  LANGUAGE_COMPILE_FLAGS = -isystem D:/android-ndk/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info
+  LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -nostdlib++ --sysroot D:/android-ndk/platforms/android-21/arch-arm64 -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -LD:/android-ndk/sources/cxx-stl/llvm-libc++/libs/arm64-v8a -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
   LINK_LIBRARIES = ../../../../libnode/bin/arm64-v8a/libnode.so -llog -latomic -lm "D:/android-ndk/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so"
   OBJECT_DIR = CMakeFiles\native-lib.dir
   POST_BUILD = cd .

@@ -16,6 +16,10 @@ class ResultActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnTextCha
 
     companion object {
         const val TAG: String = "ResultActivity"
+        const val EXTRA_FILENAME: String = "filename"
+        const val EXTRA_SCRIPT: String = "script"
+        const val EXTRA_WORKING_DIRECTORY: String = "workingDirectory"
+        const val EXTRA_ENGINE: String = "engine"
     }
 
     private lateinit var editor: IridiumHighlightingEditorJ
@@ -27,6 +31,9 @@ class ResultActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnTextCha
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(!Settings.isInit) {
+            Settings.init(this)
+        }
         setContentView(R.layout.activity_result)
         setSupportActionBar(toolbar)
 
@@ -36,11 +43,11 @@ class ResultActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnTextCha
         editActivityFragment = (supportFragmentManager.findFragmentById(R.id.fragment) as EditActivityFragment)
         editor = editActivityFragment.editor
 
-        engine = Engines.values()[intent.getIntExtra("engine", Engines.WEB_VIEW.ordinal)]
+        engine = Engines.values()[intent.getIntExtra(EXTRA_ENGINE, Engines.WEB_VIEW.ordinal)]
         execution = object: Execution {
-            override var filename = intent.getStringExtra("filename")!!
-            override var script = intent.getStringExtra("script")!!
-            override var workingDirectory = intent.getStringExtra("workingDirectory")!!
+            override var filename = intent.getStringExtra(EXTRA_FILENAME)!!
+            override var script = intent.getStringExtra(EXTRA_SCRIPT)!!
+            override var workingDirectory = intent.getStringExtra(EXTRA_WORKING_DIRECTORY)!!
         }
         when(engine) {
             Engines.WEB_VIEW -> { initWebViewJavaScript(); runWebViewJavaScript(execution); }

@@ -8,15 +8,30 @@
 
     <TextView
         android:id="@+id/filename"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:ellipsize="start"
-        android:text="@string/default_filename"
         android:layout_marginTop="55dp"
+        android:ellipsize="start"
         android:paddingHorizontal="@dimen/editor_padding"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fragment"/>
+        android:singleLine="true"
+        android:text="@string/default_filename"
+        app:layout_constraintBottom_toTopOf="@id/fragment"
+        app:layout_constraintRight_toLeftOf="@id/line_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/line_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:ellipsize="end"
+        android:paddingHorizontal="@dimen/editor_padding"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/filename"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -8,12 +8,9 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceFragment
-import android.preference.PreferenceManager
-import android.preference.RingtonePreference
+import android.os.Environment
+import android.preference.*
+import android.support.annotation.StringRes
 import android.text.TextUtils
 import android.view.MenuItem
 
@@ -62,28 +59,79 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      */
     override fun isValidFragment(fragmentName: String): Boolean {
         return PreferenceFragment::class.java.name == fragmentName
-                || GeneralPreferenceFragment::class.java.name == fragmentName
-                || DataSyncPreferenceFragment::class.java.name == fragmentName
-                || NotificationPreferenceFragment::class.java.name == fragmentName
+                || EnginesPreferenceFragment::class.java.name == fragmentName
+                || HelpFeedbackPreferenceFragment::class.java.name == fragmentName
+                || AboutReadmePreferenceFragment::class.java.name == fragmentName
     }
 
     /**
-     * This fragment shows general preferences only. It is used when the
+     * This fragment shows engines preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class GeneralPreferenceFragment : PreferenceFragment() {
+    class EnginesPreferenceFragment : PreferenceFragment() {
+        lateinit var prefDefaultFilename: EditTextPreference
+        lateinit var prefDefaultEngine: ListPreference
+        lateinit var prefNeverAsk: SwitchPreference
+        lateinit var prefProjectPath: EditTextPreference
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_general)
+            addPreferencesFromResource(R.xml.pref_engines)
             setHasOptionsMenu(true)
+
+            prefDefaultFilename = findPreference("default_filename") as EditTextPreference
+            prefDefaultEngine = findPreference("default_engine") as ListPreference
+            prefNeverAsk = findPreference("never_ask") as SwitchPreference
+            prefProjectPath = findPreference("project_path") as EditTextPreference
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"))
-            bindPreferenceSummaryToValue(findPreference("example_list"))
+            bindPreferenceSummaryToValue(prefDefaultFilename)
+            bindPreferenceSummaryToValue(prefDefaultEngine)
+            bindPreferenceSummaryToValue(prefProjectPath)
+
+
+            var defaultListener = prefDefaultFilename.onPreferenceChangeListener
+            prefDefaultFilename.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref, value ->
+                if((value as String).isBlank()) {
+                    Settings.setDefaultFilenameFromSettingsActivity(value)
+                    return@OnPreferenceChangeListener defaultListener.onPreferenceChange(pref, getString(R.string.default_filename))
+                } else {
+                    Settings.setDefaultFilenameFromSettingsActivity(value)
+                    return@OnPreferenceChangeListener defaultListener.onPreferenceChange(pref, value)
+                }
+            }
+
+            defaultListener = prefNeverAsk.onPreferenceChangeListener
+            prefNeverAsk.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref, value ->
+                Settings.neverAsk = value as Boolean
+                val ret: Boolean = defaultListener.onPreferenceChange(pref, value)
+                pref.setSummary(R.string.pref_description_always_use_default_engine)
+                return@OnPreferenceChangeListener ret
+            }
+
+            defaultListener = prefDefaultEngine.onPreferenceChangeListener
+            prefDefaultEngine.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref, value ->
+                for(engine in Engines.values()) {
+                    if(engine.getEngineName() == value) Settings.defaultEngine = engine
+                }
+                return@OnPreferenceChangeListener defaultListener.onPreferenceChange(pref, value)
+            }
+
+            prefProjectPath.text = Settings.projectPath
+            prefProjectPath.setDefaultValue(Settings.projectPath)
+            prefProjectPath.summary = Settings.projectPath
+            defaultListener = prefProjectPath.onPreferenceChangeListener
+            prefProjectPath.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref, value ->
+                if((value as String).isBlank()) {
+                    Settings.projectPath = Environment.getExternalStorageDirectory().path
+                } else {
+                    Settings.setProjectPathFromSettingsActivity(value)
+                }
+                return@OnPreferenceChangeListener defaultListener.onPreferenceChange(pref, Settings.projectPath)
+            }
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -101,17 +149,21 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class NotificationPreferenceFragment : PreferenceFragment() {
+    class AboutReadmePreferenceFragment : PreferenceFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_notification)
+            addPreferencesFromResource(R.xml.pref_about_readme)
             setHasOptionsMenu(true)
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"))
+            findPreference("github").setOnPreferenceClickListener { _ ->
+                openLink(activity, R.string.pref_description_github)
+                return@setOnPreferenceClickListener false
+            }
+
+            findPreference("readme").setOnPreferenceClickListener { _ ->
+                openLink(activity, R.string.pref_description_readme)
+                return@setOnPreferenceClickListener false
+            }
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -129,17 +181,30 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class DataSyncPreferenceFragment : PreferenceFragment() {
+    class HelpFeedbackPreferenceFragment : PreferenceFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_data_sync)
+            addPreferencesFromResource(R.xml.pref_help_feedback)
             setHasOptionsMenu(true)
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"))
+            findPreference("github").setOnPreferenceClickListener { _ ->
+                openLink(activity, R.string.pref_description_github_issue)
+                return@setOnPreferenceClickListener false
+            }
+
+            findPreference("email").setOnPreferenceClickListener { _ ->
+                val email = arrayOf(getString(R.string.pref_description_email))
+//                val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(email[0]))
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "message/rfc822"
+                intent.putExtra(Intent.EXTRA_EMAIL, email)
+////                intent.putExtra(Intent.EXTRA_CC, email)
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sample_email_subject))
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sample_email_text))
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_email_client)))
+
+                return@setOnPreferenceClickListener false
+            }
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -154,6 +219,14 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
     companion object {
 
+        private fun openLink(context: Context, @StringRes linkId: Int) {
+            openLink(context, context.getString(linkId))
+        }
+
+        private fun openLink(context: Context, link: String) {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+        }
+
         /**
          * A preference value change listener that updates the preference's summary
          * to reflect its new value.
@@ -164,13 +237,12 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             if (preference is ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
-                val listPreference = preference
-                val index = listPreference.findIndexOfValue(stringValue)
+                val index = preference.findIndexOfValue(stringValue)
 
                 // Set the summary to reflect the new value.
                 preference.setSummary(
                         if (index >= 0)
-                            listPreference.entries[index]
+                            preference.entries[index]
                         else
                             null)
 
@@ -179,7 +251,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_ringtone_silent)
+//                    preference.setSummary(R.string.pref_ringtone_silent)
 
                 } else {
                     val ringtone = RingtoneManager.getRingtone(

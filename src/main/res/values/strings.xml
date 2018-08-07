@@ -4,11 +4,11 @@
     <string name="exit_hint">Press back again to exit</string>
 
     <string name="dialog_pick_failed_title">Open Failed</string>
-    <string name="dialog_pick_failed_message">Sorry, unable to open script/project.\nPlease make sure you have a file manager installed.</string>
+    <string name="dialog_pick_failed_message">Sorry, unable to open script/project.\nPlease make sure you have a file manager installed and you have not canceled the selection.</string>
     <string name="dialog_open_failed_title">Open Failed</string>
     <string name="dialog_open_failed_message">Sorry, unable to open script/project.\nPlease make sure you have the permission and the script/project exists.</string>
-    <string name="dialog_confirm">OK</string>
-    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_confirm">@android:string/ok</string>
+    <string name="dialog_cancel">@android:string/cancel</string>
 
     <string name="new_script">New Script</string>
     <string name="new_script_desc">Start Coding Here</string>
@@ -19,6 +19,8 @@
     <string name="open_project">Open Project</string>
     <string name="open_project_desc">Open A JS Project Folder</string>
     <string name="under_construction">Sorry, this function is still under construction :P</string>
+
+    <string name="project_opened">Project opened, set as default path</string>
 
     <string name="title_activity_edit">Edit</string>
     <string name="settings">Settings</string>
@@ -31,6 +33,20 @@
     <string name="save_success">File saved</string>
     <string name="dialog_select_engine_title">Select Engine</string>
     <string name="dialog_select_engine_message">Select an engine to run your script.</string>
+    <string name="dialog_save_as_pick_failed_title">Save As Failed</string>
+    <string name="dialog_save_as_pick_failed_message">Sorry, please make sure you have the permission.</string>
+    <string name="dialog_override_title">Override File</string>
+    <string name="dialog_override_message">Are you sure you want to override the existing file?\nPath: %s</string>
+    <string name="dialog_save_as_failed_title">Save As Failed</string>
+    <string name="dialog_save_as_failed_message">Sorry, please make sure you have the permission.\nTrying another path may help.</string>
+    <string name="dialog_save_as_filename_title">File Name</string>
+    <string name="dialog_goto_title">Goto…</string>
+    <string name="dialog_goto_hint">line[:column] e.g. 10:5 or 10</string>
+    <string name="position_not_found">Position not found : (</string>
+    <string name="line_count">lines: %d</string>
+    <string name="dialog_unsaved_hint_title">File unsaved</string>
+    <string name="dialog_unsaved_hint_description">Do you want to save now?</string>
+    <string name="dialog_unsaved_hint_do_not_save">Don\'t save</string>
 
     <string name="web_view">WebView</string>
     <string name="web_view_desc">WebView (built-in browser environment)</string>
@@ -43,4 +59,50 @@
     <string name="rerun_hint">Rerunning script…</string>
     <string name="dialog_run_failed_title">Run Failed</string>
     <string name="dialog_run_failed_message">Failed to run script with the following error message:\n%s</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_header_engines">Engines</string>
+
+    <string name="pref_title_always_use_default_engine">Always use default engine</string>
+    <string name="pref_description_always_use_default_engine">Always use default JavaScript engine to run your code (Never ask)</string>
+
+    <string name="pref_title_default_filename">Default file name</string>
+
+    <string name="pref_default_engine">Default engine</string>
+    <string-array name="pref_engines_names">
+        <item>WebView</item>
+        <item>Node.js</item>
+    </string-array>
+    <string-array name="pref_engines_values">
+        <item>WebView</item>
+        <item>Node</item>
+    </string-array>
+
+    <string name="pref_default_project_path" />
+    <string name="pref_title_project_path">Project path</string>
+    <string name="pref_hint_project_path">Leave empty to reset to default path</string>
+
+    <!-- Settings for Help & Feedback -->
+    <string name="pref_header_help_feedback">Help &amp; Feedback</string>
+    <string name="pref_title_github_issue">Github</string>
+    <string name="pref_description_github_issue">https://github.com/Luluno01/mJavaScript/issues</string>
+    <string name="pref_title_email">Email</string>
+    <string name="pref_description_email">littleluluno01@163.com</string>
+    <string name="sample_email_subject">Feedback from mJavaScript</string>
+    <string name="sample_email_text">Hello, Untitled\n\nI have several questions…</string>
+    <string name="choose_email_client">Choose an email client…</string>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Settings for About & Readme -->
+    <string name="pref_header_about_readme">About &amp; Readme</string>
+    <string name="pref_title_application_version">Application version</string>
+    <string name="pref_title_author">Author</string>
+    <string name="pref_description_author">Untitled</string>
+    <string name="pref_title_github">Github</string>
+    <string name="pref_description_github">https://github.com/Luluno01/mJavaScript</string>
+    <string name="pref_title_readme">Readme</string>
+    <string name="pref_description_readme">https://github.com/Luluno01/mJavaScript/blob/master/README.md</string>
 </resources>
