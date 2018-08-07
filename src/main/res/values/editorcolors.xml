@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="syntax_error">#f95a5a</color>
+    <color name="syntax_number">#962bdd</color>
+    <color name="syntax_keyword">#1d91b8</color>
+    <color name="syntax_builtin">#28DEAA</color>
+    <color name="syntax_comment">#9f9f9f</color>
+    <color name="syntax_symbol">#0e2d00</color>
+    <color name="syntax_string">#9c5906</color>
+    <color name="syntax_identifier">#000883</color>
+    <color name="editor_text">#262626</color>
+    <color name="background_editor">#f5f5f5</color>
+</resources>
