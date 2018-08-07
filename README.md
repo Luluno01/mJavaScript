@@ -42,7 +42,7 @@ Furthermore, if you are running your code via Node.js engine, please be careful 
 4. Unstoppable server (e.g. an infinite http server)
 5. Any lengthy operation
 
-Otherwise you will have to restart (or close) the app completely to interrupt your script unless you know excatly what you are doing.
+Otherwise you will have to restart (or close) the app completely to interrupt your script. Do so unless you know excatly what you are doing.
 
 ## Q&A
 
