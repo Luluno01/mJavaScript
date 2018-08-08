@@ -3,7 +3,7 @@
     <Preference
         android:persistent="false"
         android:title="@string/pref_title_application_version"
-        android:summary="1.0" />
+        android:summary="1.0.1" />
 
     <Preference
         android:persistent="false"

@@ -23,6 +23,8 @@ class IridiumHighlightingEditorJ : EditText {
         fun onTextChanged(text: String)
     }
 
+    private var indent: String = "  "
+
     private var highlightingDefinition: HighlightingDefinition = GenericHighlightingDefinition()
 
     private val updateHandler = Handler()
@@ -80,6 +82,12 @@ class IridiumHighlightingEditorJ : EditText {
         tabWidthInCharacters = characters
         tabWidth = Math.round(
                 paint.measureText("m") * characters)
+
+        /* Replace tab with spaces */
+        indent = ""
+        for (i in 0 until characters) {
+            indent += " "
+        }
     }
 
     fun hasErrorLine(): Boolean {
@@ -126,7 +134,7 @@ class IridiumHighlightingEditorJ : EditText {
         text.replace(
                 Math.min(start, end),
                 Math.max(start, end),
-                "\t",
+                indent,
                 0,
                 1)
     }
@@ -458,7 +466,7 @@ class IridiumHighlightingEditorJ : EditText {
 
         // add new indent
         if (pt < 0)
-            indent += "\t"
+            indent += this.indent
 
         // append white space of previous line and new indent
         return source.toString() + indent

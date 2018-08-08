@@ -268,7 +268,7 @@ typedef int evp_verify_method(int type, const unsigned char *m,
 struct env_md_ctx_st {
     const EVP_MD *digest;
     ENGINE *engine;             /* functional reference if 'digest' is
-                                 * Engines-provided */
+                                 * ENGINE-provided */
     unsigned long flags;
     void *md_data;
     /* Public key context for sign/verify */
@@ -449,7 +449,7 @@ typedef struct evp_cipher_info_st {
 struct evp_cipher_ctx_st {
     const EVP_CIPHER *cipher;
     ENGINE *engine;             /* functional reference if 'cipher' is
-                                 * Engines-provided */
+                                 * ENGINE-provided */
     int encrypt;                /* encrypt or decrypt */
     int buf_len;                /* number we have left */
     unsigned char oiv[EVP_MAX_IV_LENGTH]; /* original iv */
@@ -769,7 +769,7 @@ const EVP_CIPHER *EVP_des_ede3_cbc(void);
 const EVP_CIPHER *EVP_desx_cbc(void);
 const EVP_CIPHER *EVP_des_ede3_wrap(void);
 /*
- * This should now be supported through the dev_crypto Engines. But also, why
+ * This should now be supported through the dev_crypto ENGINE. But also, why
  * are rc4 and md5 declarations made here inside a "NO_DES" precompiler
  * branch?
  */

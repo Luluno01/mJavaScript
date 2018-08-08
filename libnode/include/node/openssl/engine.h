@@ -68,7 +68,7 @@
 # include <openssl/opensslconf.h>
 
 # ifdef OPENSSL_NO_ENGINE
-#  error Engines is disabled.
+#  error ENGINE is disabled.
 # endif
 
 # ifndef OPENSSL_NO_DEPRECATED
@@ -123,38 +123,38 @@ extern "C" {
 
 /*
  * This(ese) flag(s) controls behaviour of the ENGINE_TABLE mechanism used
- * internally to control registration of Engines implementations, and can be
+ * internally to control registration of ENGINE implementations, and can be
  * set by ENGINE_set_table_flags(). The "NOINIT" flag prevents attempts to
  * initialise registered ENGINEs if they are not already initialised.
  */
 # define ENGINE_TABLE_FLAG_NOINIT        (unsigned int)0x0001
 
-/* Engines flags that can be set by ENGINE_set_flags(). */
+/* ENGINE flags that can be set by ENGINE_set_flags(). */
 /* Not used */
 /* #define ENGINE_FLAGS_MALLOCED        0x0001 */
 
 /*
  * This flag is for ENGINEs that wish to handle the various 'CMD'-related
  * control commands on their own. Without this flag, ENGINE_ctrl() handles
- * these control commands on behalf of the Engines using their "cmd_defns"
+ * these control commands on behalf of the ENGINE using their "cmd_defns"
  * data.
  */
 # define ENGINE_FLAGS_MANUAL_CMD_CTRL    (int)0x0002
 
 /*
  * This flag is for ENGINEs who return new duplicate structures when found
- * via "ENGINE_by_id()". When an Engines must store state (eg. if
+ * via "ENGINE_by_id()". When an ENGINE must store state (eg. if
  * ENGINE_ctrl() commands are called in sequence as part of some stateful
  * process like key-generation setup and execution), it can set this flag -
- * then each attempt to obtain the Engines will result in it being copied into
+ * then each attempt to obtain the ENGINE will result in it being copied into
  * a new structure. Normally, ENGINEs don't declare this flag so
- * ENGINE_by_id() just increments the existing Engines's structural reference
+ * ENGINE_by_id() just increments the existing ENGINE's structural reference
  * count.
  */
 # define ENGINE_FLAGS_BY_ID_COPY         (int)0x0004
 
 /*
- * This flag if for an Engines that does not want its methods registered as
+ * This flag if for an ENGINE that does not want its methods registered as
  * part of ENGINE_register_all_complete() for example if the methods are not
  * usable as default methods.
  */
@@ -196,11 +196,11 @@ extern "C" {
  * NB: These 3 control commands are deprecated and should not be used.
  * ENGINEs relying on these commands should compile conditional support for
  * compatibility (eg. if these symbols are defined) but should also migrate
- * the same functionality to their own Engines-specific control functions that
+ * the same functionality to their own ENGINE-specific control functions that
  * can be "discovered" by calling applications. The fact these control
  * commands wouldn't be "executable" (ie. usable by text-based config)
  * doesn't change the fact that application code can find and use them
- * without requiring per-Engines hacking.
+ * without requiring per-ENGINE hacking.
  */
 
 /*
@@ -229,32 +229,32 @@ extern "C" {
 
 /*
  * These control commands allow an application to deal with an arbitrary
- * engines in a dynamic way. Warn: Negative return values indicate errors FOR
+ * engine in a dynamic way. Warn: Negative return values indicate errors FOR
  * THESE COMMANDS because zero is used to indicate 'end-of-list'. Other
- * commands, including Engines-specific command types, return zero for an
- * error. An Engines can choose to implement these ctrl functions, and can
+ * commands, including ENGINE-specific command types, return zero for an
+ * error. An ENGINE can choose to implement these ctrl functions, and can
  * internally manage things however it chooses - it does so by setting the
  * ENGINE_FLAGS_MANUAL_CMD_CTRL flag (using ENGINE_set_flags()). Otherwise
- * the ENGINE_ctrl() code handles this on the Engines's behalf using the
- * cmd_defns data (set using ENGINE_set_cmd_defns()). This means an Engines's
+ * the ENGINE_ctrl() code handles this on the ENGINE's behalf using the
+ * cmd_defns data (set using ENGINE_set_cmd_defns()). This means an ENGINE's
  * ctrl() handler need only implement its own commands - the above "meta"
  * commands will be taken care of.
  */
 
 /*
- * Returns non-zero if the supplied Engines has a ctrl() handler. If "not",
+ * Returns non-zero if the supplied ENGINE has a ctrl() handler. If "not",
  * then all the remaining control commands will return failure, so it is
  * worth checking this first if the caller is trying to "discover" the
- * engines's capabilities and doesn't want errors generated unnecessarily.
+ * engine's capabilities and doesn't want errors generated unnecessarily.
  */
 # define ENGINE_CTRL_HAS_CTRL_FUNCTION           10
 /*
  * Returns a positive command number for the first command supported by the
- * engines. Returns zero if no ctrl commands are supported.
+ * engine. Returns zero if no ctrl commands are supported.
  */
 # define ENGINE_CTRL_GET_FIRST_CMD_TYPE          11
 /*
- * The 'long' argument specifies a command implemented by the engines, and the
+ * The 'long' argument specifies a command implemented by the engine, and the
  * return value is the next command supported, or zero if there are no more.
  */
 # define ENGINE_CTRL_GET_NEXT_CMD_TYPE           12
@@ -279,25 +279,25 @@ extern "C" {
 /*
  * With this command, the return value is the OR'd combination of
  * ENGINE_CMD_FLAG_*** values that indicate what kind of input a given
- * engines-specific ctrl command expects.
+ * engine-specific ctrl command expects.
  */
 # define ENGINE_CTRL_GET_CMD_FLAGS               18
 
 /*
- * Engines implementations should start the numbering of their own control
+ * ENGINE implementations should start the numbering of their own control
  * commands from this value. (ie. ENGINE_CMD_BASE, ENGINE_CMD_BASE + 1, etc).
  */
 # define ENGINE_CMD_BASE                         200
 
 /*
  * NB: These 2 nCipher "chil" control commands are deprecated, and their
- * functionality is now available through Engines-specific control commands
+ * functionality is now available through ENGINE-specific control commands
  * (exposed through the above-mentioned 'CMD'-handling). Code using these 2
  * commands should be migrated to the more general command handling before
  * these are removed.
  */
 
-/* Flags specific to the nCipher "chil" engines */
+/* Flags specific to the nCipher "chil" engine */
 # define ENGINE_CTRL_CHIL_SET_FORKCHECK          100
         /*
          * Depending on the value of the (long)i argument, this sets or
@@ -311,7 +311,7 @@ extern "C" {
          */
 
 /*
- * If an Engines supports its own specific control commands and wishes the
+ * If an ENGINE supports its own specific control commands and wishes the
  * framework to handle the above 'ENGINE_CMD_***'-manipulation commands on
  * its behalf, it should supply a null-terminated array of ENGINE_CMD_DEFN
  * entries to ENGINE_set_cmd_defns(). It should also implement a ctrl()
@@ -345,10 +345,10 @@ typedef int (*ENGINE_SSL_CLIENT_CERT_PTR) (ENGINE *, SSL *ssl,
                                            UI_METHOD *ui_method,
                                            void *callback_data);
 /*-
- * These callback types are for an Engines's handler for cipher and digest logic.
+ * These callback types are for an ENGINE's handler for cipher and digest logic.
  * These handlers have these prototypes;
- *   int foo(Engines *e, const EVP_CIPHER **cipher, const int **nids, int nid);
- *   int foo(Engines *e, const EVP_MD **digest, const int **nids, int nid);
+ *   int foo(ENGINE *e, const EVP_CIPHER **cipher, const int **nids, int nid);
+ *   int foo(ENGINE *e, const EVP_MD **digest, const int **nids, int nid);
  * Looking at how to implement these handlers in the case of cipher support, if
  * the framework wants the EVP_CIPHER for 'nid', it will call;
  *   foo(e, &p_evp_cipher, NULL, nid);    (return zero for failure)
@@ -369,27 +369,27 @@ typedef int (*ENGINE_PKEY_ASN1_METHS_PTR) (ENGINE *, EVP_PKEY_ASN1_METHOD **,
                                            const int **, int);
 /*
  * STRUCTURE functions ... all of these functions deal with pointers to
- * Engines structures where the pointers have a "structural reference". This
+ * ENGINE structures where the pointers have a "structural reference". This
  * means that their reference is to allowed access to the structure but it
  * does not imply that the structure is functional. To simply increment or
  * decrement the structural reference count, use ENGINE_by_id and
  * ENGINE_free. NB: This is not required when iterating using ENGINE_get_next
  * as it will automatically decrement the structural reference count of the
- * "current" Engines and increment the structural reference count of the
- * Engines it returns (unless it is NULL).
+ * "current" ENGINE and increment the structural reference count of the
+ * ENGINE it returns (unless it is NULL).
  */
 
-/* Get the first/last "Engines" type available. */
+/* Get the first/last "ENGINE" type available. */
 ENGINE *ENGINE_get_first(void);
 ENGINE *ENGINE_get_last(void);
-/* Iterate to the next/previous "Engines" type (NULL = end of the list). */
+/* Iterate to the next/previous "ENGINE" type (NULL = end of the list). */
 ENGINE *ENGINE_get_next(ENGINE *e);
 ENGINE *ENGINE_get_prev(ENGINE *e);
-/* Add another "Engines" type into the array. */
+/* Add another "ENGINE" type into the array. */
 int ENGINE_add(ENGINE *e);
-/* Remove an existing "Engines" type from the array. */
+/* Remove an existing "ENGINE" type from the array. */
 int ENGINE_remove(ENGINE *e);
-/* Retrieve an engines from the list by its unique "id" value. */
+/* Retrieve an engine from the list by its unique "id" value. */
 ENGINE *ENGINE_by_id(const char *id);
 /* Add all the built-in engines. */
 void ENGINE_load_openssl(void);
@@ -486,19 +486,19 @@ int ENGINE_register_complete(ENGINE *e);
 int ENGINE_register_all_complete(void);
 
 /*
- * Send parametrised control commands to the engines. The possibilities to
+ * Send parametrised control commands to the engine. The possibilities to
  * send down an integer, a pointer to data or a function pointer are
  * provided. Any of the parameters may or may not be NULL, depending on the
  * command number. In actuality, this function only requires a structural
- * (rather than functional) reference to an engines, but many control commands
- * may require the engines be functional. The caller should be aware of trying
- * commands that require an operational Engines, and only use functional
+ * (rather than functional) reference to an engine, but many control commands
+ * may require the engine be functional. The caller should be aware of trying
+ * commands that require an operational ENGINE, and only use functional
  * references in such situations.
  */
 int ENGINE_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f) (void));
 
 /*
- * This function tests if an Engines-specific command is usable as a
+ * This function tests if an ENGINE-specific command is usable as a
  * "setting". Eg. in an application's config file that gets processed through
  * ENGINE_ctrl_cmd_string(). If this returns zero, it is not available to
  * ENGINE_ctrl_cmd_string(), only ENGINE_ctrl().
@@ -515,15 +515,15 @@ int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,
                     long i, void *p, void (*f) (void), int cmd_optional);
 
 /*
- * This function passes a command-name and argument to an Engines. The
+ * This function passes a command-name and argument to an ENGINE. The
  * cmd_name is converted to a command number and the control command is
- * called using 'arg' as an argument (unless the Engines doesn't support such
+ * called using 'arg' as an argument (unless the ENGINE doesn't support such
  * a command, in which case no control command is called). The command is
  * checked for input flags, and if necessary the argument will be converted
- * to a numeric value. If cmd_optional is non-zero, then if the Engines
+ * to a numeric value. If cmd_optional is non-zero, then if the ENGINE
  * doesn't support the given cmd_name the return value will be success
  * anyway. This function is intended for applications to use so that users
- * (or config files) can supply engines-specific config data to the Engines at
+ * (or config files) can supply engine-specific config data to the ENGINE at
  * run-time to control behaviour of specific engines. As such, it shouldn't
  * be used for calling ENGINE_ctrl() functions that return data, deal with
  * binary data, or that are otherwise supposed to be used directly through
@@ -531,20 +531,20 @@ int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,
  * operation in this function will be lost - the return value is interpreted
  * as failure if the return value is zero, success otherwise, and this
  * function returns a boolean value as a result. In other words, vendors of
- * 'Engines'-enabled devices should write Engines implementations with
- * parameterisations that work in this scheme, so that compliant Engines-based
+ * 'ENGINE'-enabled devices should write ENGINE implementations with
+ * parameterisations that work in this scheme, so that compliant ENGINE-based
  * applications can work consistently with the same configuration for the
- * same Engines-enabled devices, across applications.
+ * same ENGINE-enabled devices, across applications.
  */
 int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,
                            int cmd_optional);
 
 /*
- * These functions are useful for manufacturing new Engines structures. They
+ * These functions are useful for manufacturing new ENGINE structures. They
  * don't address reference counting at all - one uses them to populate an
- * Engines structure with personalised implementations of things prior to
- * using it directly or adding it to the builtin Engines list in OpenSSL.
- * These are also here so that the Engines structure doesn't have to be
+ * ENGINE structure with personalised implementations of things prior to
+ * using it directly or adding it to the builtin ENGINE list in OpenSSL.
+ * These are also here so that the ENGINE structure doesn't have to be
  * exposed and break binary compatibility!
  */
 ENGINE *ENGINE_new(void);
@@ -575,7 +575,7 @@ int ENGINE_set_pkey_meths(ENGINE *e, ENGINE_PKEY_METHS_PTR f);
 int ENGINE_set_pkey_asn1_meths(ENGINE *e, ENGINE_PKEY_ASN1_METHS_PTR f);
 int ENGINE_set_flags(ENGINE *e, int flags);
 int ENGINE_set_cmd_defns(ENGINE *e, const ENGINE_CMD_DEFN *defns);
-/* These functions allow control over any per-structure Engines data. */
+/* These functions allow control over any per-structure ENGINE data. */
 int ENGINE_get_ex_new_index(long argl, void *argp, CRYPTO_EX_new *new_func,
                             CRYPTO_EX_dup *dup_func,
                             CRYPTO_EX_free *free_func);
@@ -591,7 +591,7 @@ void *ENGINE_get_ex_data(const ENGINE *e, int idx);
 void ENGINE_cleanup(void);
 
 /*
- * These return values from within the Engines structure. These can be useful
+ * These return values from within the ENGINE structure. These can be useful
  * with functional references as well as structural references - it depends
  * which you obtained. Using the result for functional purposes if you only
  * obtained a structural reference may be problematic!
@@ -631,26 +631,26 @@ const ENGINE_CMD_DEFN *ENGINE_get_cmd_defns(const ENGINE *e);
 int ENGINE_get_flags(const ENGINE *e);
 
 /*
- * FUNCTIONAL functions. These functions deal with Engines structures that
+ * FUNCTIONAL functions. These functions deal with ENGINE structures that
  * have (or will) be initialised for use. Broadly speaking, the structural
- * functions are useful for iterating the list of available engines types,
- * creating new engines types, and other "list" operations. These functions
+ * functions are useful for iterating the list of available engine types,
+ * creating new engine types, and other "list" operations. These functions
  * actually deal with ENGINEs that are to be used. As such these functions
  * can fail (if applicable) when particular engines are unavailable - eg. if
  * a hardware accelerator is not attached or not functioning correctly. Each
- * Engines has 2 reference counts; structural and functional. Every time a
+ * ENGINE has 2 reference counts; structural and functional. Every time a
  * functional reference is obtained or released, a corresponding structural
  * reference is automatically obtained or released too.
  */
 
 /*
- * Initialise a engines type for use (or up its reference count if it's
- * already in use). This will fail if the engines is not currently operational
+ * Initialise a engine type for use (or up its reference count if it's
+ * already in use). This will fail if the engine is not currently operational
  * and cannot initialise.
  */
 int ENGINE_init(ENGINE *e);
 /*
- * Free a functional reference to a engines type. This does not require a
+ * Free a functional reference to a engine type. This does not require a
  * corresponding call to ENGINE_free as it also releases a structural
  * reference.
  */
@@ -658,7 +658,7 @@ int ENGINE_finish(ENGINE *e);
 
 /*
  * The following functions handle keys that are stored in some secondary
- * location, handled by the engines.  The storage may be on a card or
+ * location, handled by the engine.  The storage may be on a card or
  * whatever.
  */
 EVP_PKEY *ENGINE_load_private_key(ENGINE *e, const char *key_id,
@@ -671,7 +671,7 @@ int ENGINE_load_ssl_client_cert(ENGINE *e, SSL *s,
                                 UI_METHOD *ui_method, void *callback_data);
 
 /*
- * This returns a pointer for the current Engines structure that is (by
+ * This returns a pointer for the current ENGINE structure that is (by
  * default) performing any RSA operations. The value returned is an
  * incremented reference, so it should be free'd (ENGINE_finish) before it is
  * discarded.
@@ -693,8 +693,8 @@ ENGINE *ENGINE_get_pkey_meth_engine(int nid);
 ENGINE *ENGINE_get_pkey_asn1_meth_engine(int nid);
 
 /*
- * This sets a new default Engines structure for performing RSA operations. If
- * the result is non-zero (success) then the Engines structure will have had
+ * This sets a new default ENGINE structure for performing RSA operations. If
+ * the result is non-zero (success) then the ENGINE structure will have had
  * its reference count up'd so the caller should still free their own
  * reference 'e'.
  */
@@ -726,7 +726,7 @@ void ENGINE_add_conf_module(void);
 /* int ENGINE_clear_defaults(void); */
 
 /**************************/
-/* DYNAMIC Engines SUPPORT */
+/* DYNAMIC ENGINE SUPPORT */
 /**************************/
 
 /* Binary/behaviour compatibility levels */
@@ -738,8 +738,8 @@ void ENGINE_add_conf_module(void);
 # define OSSL_DYNAMIC_OLDEST             (unsigned long)0x00020000
 
 /*
- * When compiling an Engines entirely as an external shared library, loadable
- * by the "dynamic" Engines, these types are needed. The 'dynamic_fns'
+ * When compiling an ENGINE entirely as an external shared library, loadable
+ * by the "dynamic" ENGINE, these types are needed. The 'dynamic_fns'
  * structure type provides the calling application's (or library's) error
  * functionality and memory management function pointers to the loaded
  * library. These should be used/set in the loaded library code so that the
@@ -804,22 +804,22 @@ typedef unsigned long (*dynamic_v_check_fn) (unsigned long ossl_version);
                 return 0; }
 
 /*
- * This function is passed the Engines structure to initialise with its own
+ * This function is passed the ENGINE structure to initialise with its own
  * function and command settings. It should not adjust the structural or
  * functional reference counts. If this function returns zero, (a) the load
- * will be aborted, (b) the previous Engines state will be memcpy'd back onto
+ * will be aborted, (b) the previous ENGINE state will be memcpy'd back onto
  * the structure, and (c) the shared library will be unloaded. So
  * implementations should do their own internal cleanup in failure
  * circumstances otherwise they could leak. The 'id' parameter, if non-NULL,
- * represents the Engines id that the loader is looking for. If this is NULL,
+ * represents the ENGINE id that the loader is looking for. If this is NULL,
  * the shared library can choose to return failure or to initialise a
- * 'default' Engines. If non-NULL, the shared library must initialise only an
- * Engines matching the passed 'id'. The function is expected to be
+ * 'default' ENGINE. If non-NULL, the shared library must initialise only an
+ * ENGINE matching the passed 'id'. The function is expected to be
  * implemented with the symbol name "bind_engine". A standard implementation
  * can be instantiated with IMPLEMENT_DYNAMIC_BIND_FN(fn) where the parameter
- * 'fn' is a callback function that populates the Engines structure and
+ * 'fn' is a callback function that populates the ENGINE structure and
  * returns an int value (zero for failure). 'fn' should have prototype;
- * [static] int fn(Engines *e, const char *id);
+ * [static] int fn(ENGINE *e, const char *id);
  */
 typedef int (*dynamic_bind_engine) (ENGINE *e, const char *id,
                                     const dynamic_fns *fns);
@@ -845,14 +845,14 @@ typedef int (*dynamic_bind_engine) (ENGINE *e, const char *id,
                 return 1; }
 
 /*
- * If the loading application (or library) and the loaded Engines library
+ * If the loading application (or library) and the loaded ENGINE library
  * share the same static data (eg. they're both dynamically linked to the
  * same libcrypto.so) we need a way to avoid trying to set system callbacks -
  * this would fail, and for the same reason that it's unnecessary to try. If
- * the loaded Engines has (or gets from through the loader) its own copy of
+ * the loaded ENGINE has (or gets from through the loader) its own copy of
  * the libcrypto static data, we will need to set the callbacks. The easiest
  * way to detect this is to have a function that returns a pointer to some
- * static data and let the loading application and loaded Engines compare
+ * static data and let the loading application and loaded ENGINE compare
  * their respective values.
  */
 void *ENGINE_get_static_state(void);
@@ -868,7 +868,7 @@ void ENGINE_setup_bsd_cryptodev(void);
  */
 void ERR_load_ENGINE_strings(void);
 
-/* Error codes for the Engines functions. */
+/* Error codes for the ENGINE functions. */
 
 /* Function codes. */
 # define ENGINE_F_DYNAMIC_CTRL                            180

@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -33,6 +35,41 @@ open class EditActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnText
         const val EXTRA_PATH: String = "path"
         private enum class REQUESTS {
             SAVE_AS
+        }
+        const val TAB_REPLACE_COUNT: Int = 2
+
+        /**
+         * Temporary solution.
+         */
+        protected open class TabFix(val editor: IridiumHighlightingEditorJ): TextWatcher {
+            protected var replacer: String
+            protected var start: Int = 0
+            protected var count: Int = 0
+            init {
+                val builder = StringBuilder()
+                for (i in 0 until TAB_REPLACE_COUNT) {
+                    builder.append(" ")
+                }
+                replacer = builder.toString()
+            }
+            protected lateinit var changedText: CharSequence
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // Do nothing
+            }
+
+            override fun onTextChanged(p0: CharSequence?, start: Int, before: Int, count: Int) {
+                val reg = Regex("\t")
+                changedText = if(reg.containsMatchIn(p0!!)) {
+                    Log.d(TAG, "Tab found")
+                    p0.subSequence(start, start + count).replace(Regex("\t"), replacer)
+                } else ""
+                this.start = start
+                this.count = count
+            }
+
+            override fun afterTextChanged(e: Editable?) {
+                if(!changedText.isEmpty()) e!!.replace(start, start + count, changedText)
+            }
         }
     }
 
@@ -68,12 +105,14 @@ open class EditActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnText
         if(null != path) {
             currentFile = path
             try {
+                editor.addTextChangedListener(TabFix(editor))
                 editor.setText(readFile(path))
                 filename.text = path
                 line_number.text = getString(R.string.line_count).format(editor.lineCount)
                 Log.i(TAG, "File ($path) opened")
                 Log.v(TAG, "Content: ${editActivityFragment.text}")
                 editor.loadHighlightingDefinition(HighlightingDefinitionLoader().selectDefinitionFromFileExtension(File(path).extension))
+                editor.updateHighlighting()
             } catch(err: IOException) {
                 onOpenFailed()
             }
@@ -410,6 +449,11 @@ open class EditActivity : AppCompatActivity(), IridiumHighlightingEditorJ.OnText
                     .create().show()
         }
         return true  // Consume the click
+    }
+
+    override fun onPause() {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(editor.windowToken, 0)
+        super.onPause()
     }
 
 }
